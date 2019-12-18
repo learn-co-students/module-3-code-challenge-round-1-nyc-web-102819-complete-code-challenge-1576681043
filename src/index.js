@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then (function (resp) {
       return resp.json();
     }).then (function (newComment) {
-          //pessimistically render to the DOM
+        //pessimistically render to the DOM
         let newCommentLi = document.createElement('li')
         newCommentLi.dataset.id = `${newComment.id}`
         newCommentLi.innerHTML = `${newComment.content}<br><button class="deleteButton">Delete</button>`
