@@ -57,7 +57,32 @@ document.addEventListener("submit",function(e){
   })
 })
 
-// document.addEventListener("click", function(e)
+/*
+stretch goals!
+gonna psuedo code here because I'm too scared to change this lol
+
+first, I'd have to add a delete button to my comments
+let byebutton = document.createElement(button)
+byebutton.innertext = "delete"
+
+weird part of this would be where to hang this code to. would I put it in the comment itself above?
+if I append it would it go underneath?
+
+option 1 is append
+option 2 is instead of comment.innerText, go comment.innerHTML and add it as a button there?
+
+either way, after getting that to be made
+I'd have to make a clicker to hit said button
+
+comment.addEventListener(click, function(e){
+  if e.innerText = "delete"
+    then fetch('https://randopic.herokuapp.com/comments/:comment_id'),{
+      method: DELETE
+    } <-- I'm ASSUMING that comment id would be some sort of `${id}` I'd have to find.
+    // if that worked, then I'd write this below to make it pessmistic?
+    e.parentNode.delete() <--- something like that, depends on how I coded it.
+})
+*/
 
 
 
