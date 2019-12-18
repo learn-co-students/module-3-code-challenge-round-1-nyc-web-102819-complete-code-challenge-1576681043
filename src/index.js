@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let imgCardDiv = document.getElementById("image_card")
   let ul = document.getElementById("comments")
   let form = document.getElementById('comment_form')
+  let submitButton = document.getElementById("submit_button")
+  submitButton.style.borderRadius = "25px"
   let imageId = 4195
 
   const imageURL = `https://randopic.herokuapp.com/images/${imageId}`
@@ -23,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let deleteButton = document.createElement("button")
       deleteButton.innerText = "Delete"
       deleteButton.dataset.id = `${comment.id}`
+      deleteButton.style.borderRadius = "25px"
+      deleteButton.style.marginLeft = "7px"
+      deleteButton.style.backgroundColor = "#F7FEFF"
       deleteButton.addEventListener("click", function (e) {
         e.target.parentNode.remove()
         fetch(`${commentsURL}/${e.target.dataset.id}`, {
@@ -40,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   let likeButton = document.getElementById('like_button')
+  likeButton.style.borderRadius = "25px"
   likeButton.addEventListener("click", function (e) {
     likes.innerText = parseInt(likes.innerText) + 1
     fetch(likeURL, {
@@ -61,6 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let commentLi = document.createElement('li')
     let newDeleteButton = document.createElement("button")
     newDeleteButton.innerText = "Delete"
+    newDeleteButton.style.borderRadius = "25px"
+    newDeleteButton.style.marginLeft = "7px"
+    newDeleteButton.style.backgroundColor = "#F7FEFF"
     commentLi.innerText = `${commentVal}`
     commentLi.appendChild(newDeleteButton)
     ul.appendChild(commentLi)
