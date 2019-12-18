@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let commentLi = document.createElement('li')
           commentLi.dataset.id = `${comment.id}`
           commentLi.dataset.imageId = `${comment.image_id}`
-          commentLi.innerText = `${comment.content}`
+          commentLi.innerHTML = `${comment.content}<br><button class="deleteButton">Delete</button>`
           commentsList.appendChild(commentLi)
         })
       })
@@ -65,11 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify ({
           image_id: 4202
-        })
-        
+        })   
       })
+    } else if (e.target.className === 'deleteButton') {
+      let commentLiToDelete = e.target.parentNode
+      deleteComment(e, commentLiToDelete);
     }
   })
+
+  function deleteComment(e, commentLiToDelete) {
+    let commentId = e.target.parentNode.dataset.id
+
+    //pessimistic, so remove the comment from the database first
+    fetch (`https://randopic.herokuapp.com/comments/${commentId}`, {
+      method: 'DELETE'
+    }).then (function (resp) {
+      return resp.json();
+    }).then (function (comment) {
+      let parentLi = e.target.parentNode
+      parentLi.remove();
+    })
+  }
 
   document.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -80,16 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   function addComment(commentContent) {
-    
-    //optimistically render to the DOM
-    let newCommentLi = document.createElement('li')
-    newCommentLi.innerText = commentContent
-    let commentsList = document.getElementById('comments')
-    commentsList.appendChild(newCommentLi)
-    let commentForm = document.getElementById('comment_form')
-    commentForm.reset();
 
-    //then, persist to DB
+    //changing to pessimistic to get id 
     fetch ('https://randopic.herokuapp.com/comments', {
       method: 'POST',
       headers: {
@@ -100,6 +108,17 @@ document.addEventListener('DOMContentLoaded', () => {
           image_id: 4202,
           content: `${commentContent}`       
       })
+    }).then (function (resp) {
+      return resp.json();
+    }).then (function (newComment) {
+          //pessimistically render to the DOM
+        let newCommentLi = document.createElement('li')
+        newCommentLi.dataset.id = `${newComment.id}`
+        newCommentLi.innerHTML = `${newComment.content}<br><button class="deleteButton">Delete</button>`
+        let commentsList = document.getElementById('comments')
+        commentsList.appendChild(newCommentLi)
+        let commentForm = document.getElementById('comment_form')
+        commentForm.reset();
     })
   }
 })
