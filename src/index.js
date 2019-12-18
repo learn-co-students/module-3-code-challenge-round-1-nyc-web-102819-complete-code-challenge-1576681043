@@ -58,11 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   let likeButton = document.getElementById("like_button")
-  console.log(likeButton)
+  // console.log(likeButton)
 
   likeButton.addEventListener("click",e => {
-    console.log(e.target)
-    console.log(img.id)
+    // console.log(e.target)
+    // console.log("image id:"img.id)
 
     let likesCount = parseInt(likes.dataset.likes)
     likes.innerText = `${likesCount+1} likes`
